@@ -258,7 +258,7 @@ print(f'{"=" * 60}')
 
 # Загрузим DEG-лист и проверим среднюю экспрессию
 degs_301375 = []
-with open('GSE301375_degs_nominal.txt', 'r') as f:
+with open(os.path.join('..', 'geo_GSE301375', 'GSE301375_degs_nominal.txt'), 'r') as f:
     f.readline()
     for line in f:
         parts = line.strip().split('\t')

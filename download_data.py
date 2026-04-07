@@ -47,13 +47,18 @@ GEO_FILES = [
         'url': 'https://ftp.ncbi.nlm.nih.gov/geo/series/GSE79nnn/GSE79329/matrix/GSE79329_series_matrix.txt.gz',
         'dest': 'geo_GSE79329/GSE79329_series_matrix.txt.gz',
     },
+    # EPIC manifest (Zhou lab, InfiniumAnnotation) - needed for probe-to-gene mapping
+    {
+        'url': 'https://raw.githubusercontent.com/zhou-lab/InfiniumAnnotationV1/main/Anno/EPIC/EPIC.hg38.manifest.gencode.v36.tsv.gz',
+        'dest': 'geo_GSE288358/EPIC.hg38.manifest.gencode.v36.tsv.gz',
+    },
 ]
 
 # =====================================================================
 # NHANES XPT files (CDC)
 # =====================================================================
 
-CDC_BASE = 'https://wwwn.cdc.gov/Nchs/Nhanes'
+CDC_BASE = 'https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public'
 
 NHANES_FILES = [
     # Cycle E (2007-2008) - iron/ferritin analysis
@@ -75,6 +80,7 @@ NHANES_FILES = [
     ('2011-2012', 'BIOPRO_G.XPT', 'nhanes/BIOPRO_G.XPT'),
     # Cycle H (2013-2014) - copper analysis
     ('2013-2014', 'PFAS_H.XPT',   'nhanes/cycle_h_2013/PFAS_H.XPT'),
+    ('2013-2014', 'SSPFAS_H.XPT', 'nhanes/cycle_h_2013/SSPFAS_H.XPT'),
     ('2013-2014', 'CUSEZN_H.XPT', 'nhanes/cycle_h_2013/CUSEZN_H.XPT'),
     ('2013-2014', 'DEMO_H.XPT',   'nhanes/cycle_h_2013/DEMO_H.XPT'),
     ('2013-2014', 'BIOPRO_H.XPT', 'nhanes/cycle_h_2013/BIOPRO_H.XPT'),
@@ -146,7 +152,8 @@ def download_nhanes():
     print("=" * 60)
     ok = 0
     for cycle, fname, dest in NHANES_FILES:
-        url = f"{CDC_BASE}/{cycle}/{fname}"
+        start_year = cycle.split('-')[0]
+        url = f"{CDC_BASE}/{start_year}/DataFiles/{fname}"
         if download_file(url, dest):
             ok += 1
         time.sleep(0.3)

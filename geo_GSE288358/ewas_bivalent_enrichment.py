@@ -55,7 +55,7 @@ sample_ids = []
 pfas_data = {}
 covariates = {}
 
-with open('GSE288358_series_matrix.txt', encoding='utf-8') as f:
+with gzip.open('GSE288358_series_matrix.txt.gz', 'rt', encoding='utf-8') as f:
     for line in f:
         line = line.strip()
         if line.startswith('!Sample_geo_accession'):

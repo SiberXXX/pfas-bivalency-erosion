@@ -7,6 +7,7 @@ Andrey F. (2026). DOI: 10.5281/zenodo.19436133
 ```
 pci_scripts/
   bivalent_domains_court_arnaud.txt   # Reference gene list (Court & Arnaud 2017)
+  download_data.py                    # Auto-downloader for public datasets
   requirements.txt
 
   docking/                # Molecular docking (Table 1)
@@ -28,13 +29,13 @@ pip install -r requirements.txt
 
 ## Data acquisition
 
-Most public data (GEO, NHANES, PDB) can be downloaded automatically:
+Most public data (GEO, NHANES, PDB, EPIC manifest) can be downloaded automatically:
 
 ```
 python download_data.py
 ```
 
-This fetches 31 files from NCBI GEO, CDC NHANES, and RCSB PDB. Run with `geo`, `nhanes`, or `pdb` argument to download selectively.
+This fetches 33 files from NCBI GEO, CDC NHANES, RCSB PDB, and GitHub (Zhou lab EPIC annotation). Run with `geo`, `nhanes`, or `pdb` argument to download selectively.
 
 ### Manual downloads (journal supplementary, not automatable)
 - Haimbaugh 2022: Excel tables (Table S3-S5) and `ensembl_to_gene.tsv` -> `geo_haimbaugh2022/`
@@ -44,16 +45,19 @@ This fetches 31 files from NCBI GEO, CDC NHANES, and RCSB PDB. Run with `geo`, `
 
 ## Running order
 
-1. `qc/download_ensembl_mapping.py` (generates `ensembl_to_symbol.tsv` via mygene.info API)
-2. `geo_GSE288358/run_analysis_v2.py` (generates `probe_to_gene.pkl`, required by GSE79329 and Liu/Ulhaq scripts)
-3. All other scripts can run independently after steps 1-2
+1. `python download_data.py` (downloads public datasets)
+2. `python qc/download_ensembl_mapping.py` (generates `ensembl_to_symbol.tsv` via mygene.info API)
+3. `python geo_GSE288358/build_probe_index.py` (generates `probe_coords.pkl` and `probe_to_gene.pkl` from EPIC manifest)
+4. `python geo_GSE288358/run_analysis_v2.py` (full EWAS with covariates)
+5. All other scripts can run independently after steps 1-3
 
-Note: `.pkl` files are generated artifacts and are not tracked in git. Run steps 1-2 first to produce them.
+Note: `.pkl` files are generated artifacts and are not tracked in git. Run step 3 to produce them.
 
 ## Script descriptions
 
 | Script | Produces | Preprint reference |
-|--------|----------|--------------------|
+|--------|----------|-------------------|
+| `geo_GSE288358/build_probe_index.py` | Probe-to-gene mapping from EPIC manifest | Utility |
 | `docking/analyze_kdm6b_docking.py` | Docking affinities, Fe2+ distances | Table 1 |
 | `nhanes/analysis_mega_copper.py` | PFAS vs serum copper (3 cycles) | Section 3.1 |
 | `nhanes/analysis_cycles_EF.py` | PFAS vs iron/ferritin (2 cycles) | Section 3.1 |
