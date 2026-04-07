@@ -40,10 +40,16 @@ print(f"  {len(probe_genes)} probes with gene annotations")
 # =====================================================
 print("\n[2] Loading bivalent domain gene list...")
 bivalent_genes = set()
+in_gene_list = False
 with open(os.path.join('..', 'bivalent_domains_court_arnaud.txt')) as f:
     for line in f:
         line = line.strip()
-        if line and not line.startswith('#'):
+        if 'UNIQUE GENE LIST' in line:
+            in_gene_list = True
+            continue
+        if 'FULL REGION TABLE' in line:
+            break
+        if in_gene_list and line and not line.startswith('#'):
             bivalent_genes.add(line.upper())
 print(f"  {len(bivalent_genes)} bivalent genes loaded")
 

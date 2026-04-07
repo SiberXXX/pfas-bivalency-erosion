@@ -1,6 +1,13 @@
 """
-MEGA-ANALYSIS: PFAS vs Serum Copper across 3 NHANES cycles (2011-2016)
-Pools 2011-2012, 2013-2014, 2015-2016 with harmonized PFAS variables.
+PFAS vs Serum Copper, NHANES 2011-2012 (Cycle G)
+
+NHANES measured PFAS and serum copper (CUSEZN) in non-overlapping subsamples
+in cycles H (2013-2014) and I (2015-2016), so those cycles yield zero
+linkable participants. Only cycle G (2011-2012) has both analytes measured
+in the same individuals.
+
+The script still loads cycles H and I to document this limitation and
+reports per-cycle sample sizes. All substantive results come from cycle G.
 """
 import pandas as pd
 import pyreadstat
@@ -62,6 +69,8 @@ df_h = pd.merge(df_h, demo_h[['SEQN', 'RIAGENDR', 'RIDAGEYR', 'RIDRETH1']], on='
 df_h = pd.merge(df_h, bio_h[['SEQN', 'LBXSATSI', 'LBXSASSI', 'LBXSGTSI', 'LBXSAL', 'LBXSGB', 'LBXSIR']], on='SEQN', how='left')
 df_h['cycle'] = '2013-2014'
 print(f"  n={len(df_h)}")
+if len(df_h) == 0:
+    print("  WARNING: Zero overlap between PFAS and CUSEZN subsamples in cycle H")
 cycles.append(df_h)
 
 # --- CYCLE I: 2015-2016 ---
@@ -89,6 +98,8 @@ df_i = pd.merge(df_i, demo_i[['SEQN', 'RIAGENDR', 'RIDAGEYR', 'RIDRETH1']], on='
 df_i = pd.merge(df_i, bio_i[['SEQN', 'LBXSATSI', 'LBXSASSI', 'LBXSGTSI', 'LBXSAL', 'LBXSGB', 'LBXSIR']], on='SEQN', how='left')
 df_i['cycle'] = '2015-2016'
 print(f"  n={len(df_i)}")
+if len(df_i) == 0:
+    print("  WARNING: Zero overlap between PFAS and CUSEZN subsamples in cycle I")
 cycles.append(df_i)
 
 # ============================================================
@@ -312,14 +323,14 @@ for cyc in ['2011-2012', '2013-2014', '2015-2016']:
 # SUMMARY
 # ============================================================
 print(f"\n{'='*80}")
-print("MEGA-ANALYSIS SUMMARY")
+print("ANALYSIS SUMMARY")
 print(f"{'='*80}")
 print(f"""
-NHANES 2011-2016 Pooled Analysis: PFAS vs Serum Copper
+NHANES 2011-2012 (Cycle G): PFAS vs Serum Copper
 Total sample: n={len(df)} (with both PFOS and copper)
 Males: n={len(males)}
 Females: n={len(females)}
-Cycles: 2011-2012, 2013-2014, 2015-2016
+Note: Only cycle G (2011-2012) has overlapping PFAS and CUSEZN subsamples.
 
 KEY FINDING: Higher PFAS = Lower serum copper
 - Effect strongest and most consistent in MALES
