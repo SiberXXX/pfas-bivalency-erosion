@@ -17,3 +17,9 @@ __pycache__/
 *.json
 *.pdb
 *.tsv
+*.csv
+*.pdbqt
+*.txt
+!README.md
+!bivalent_domains_court_arnaud.txt
+!requirements.txt
