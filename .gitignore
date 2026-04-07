@@ -1,0 +1,16 @@
+# Generated artifacts (reproduce by running scripts)
+*.pkl
+*.pyc
+__pycache__/
+
+# Data files (download from GEO/NHANES, see README)
+*.XPT
+*.xpt
+*.gz
+*.csv.gz
+*.txt.gz
+*.xlsx
+
+# Output
+*.png
+*.pdf

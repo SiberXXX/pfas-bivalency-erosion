@@ -52,9 +52,11 @@ AutoDock Vina PDBQT output files should be in `docking/`. PDB structures from RC
 
 ## Running order
 
-1. `qc/download_ensembl_mapping.py` (generates Ensembl-to-symbol mapping)
-2. `geo_GSE288358/run_analysis_v2.py` (generates `probe_to_gene.pkl` used by other scripts)
+1. `qc/download_ensembl_mapping.py` (generates `ensembl_to_symbol.tsv` via mygene.info API)
+2. `geo_GSE288358/run_analysis_v2.py` (generates `probe_to_gene.pkl`, required by GSE79329 and Liu/Ulhaq scripts)
 3. All other scripts can run independently after steps 1-2
+
+Note: `.pkl` files are generated artifacts and are not tracked in git. Run steps 1-2 first to produce them.
 
 ## Script descriptions
 
