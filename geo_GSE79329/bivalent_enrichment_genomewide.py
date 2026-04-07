@@ -3,12 +3,13 @@ GSE79329: Genome-wide bivalent enrichment analysis
 Dutch men (n=34), leukocytes, 450K array, 5 PFAS
 Spearman correlation for each probe, then Fisher test for bivalent enrichment
 """
-import gzip, pickle, re, sys, io, json
+import gzip, pickle, re, sys, io, json, os
 import numpy as np
 from scipy import stats
 from scipy.stats import fisher_exact
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 print("=" * 80)
 print("GSE79329: GENOME-WIDE BIVALENT ENRICHMENT")

@@ -1,6 +1,7 @@
-import urllib.request, json, gzip, time, sys, io
+import urllib.request, json, gzip, time, sys, io, os
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # Extract unique gene IDs
 genes = []

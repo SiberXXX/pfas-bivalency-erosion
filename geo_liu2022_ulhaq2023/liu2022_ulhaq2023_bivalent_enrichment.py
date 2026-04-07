@@ -15,11 +15,12 @@ Dataset 2: Ulhaq et al. (2023) J Hazard Mater 457:131718
 Bivalent genes: Court & Arnaud (2017) - 5,377 HC bivalent genes from 5 hESC lines
 """
 
-import pickle, openpyxl, sys, io, json
+import pickle, openpyxl, sys, io, json, os
 import numpy as np
 from scipy.stats import fisher_exact
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # =====================================================
 # LOAD RESOURCES
