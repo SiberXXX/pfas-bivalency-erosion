@@ -28,27 +28,19 @@ pip install -r requirements.txt
 
 ## Data acquisition
 
-### GEO datasets (download before running)
-- GSE254408: place `GSE254408_all_samples_raw_counts.txt.gz` in `geo_GSE254408/`
-- GSE301375: place count files in `geo_GSE301375/GSE301375_counts/`
-- GSE288358: place `GSE288358_Beta_Matrix.csv.gz` and `GSE288358_series_matrix.txt` in `geo_GSE288358/`
-- GSE79329: place `GSE79329_POP_levels.txt.gz` and `GSE79329_series_matrix.txt.gz` in `geo_GSE79329/`
+Most public data (GEO, NHANES, PDB) can be downloaded automatically:
 
-### NHANES XPT files (download from CDC)
-Place XPT files in `nhanes/` with subdirectories per cycle:
-- `nhanes/PFC_G.XPT`, `CUSEZN_G.XPT`, `DEMO_G.XPT`, `BIOPRO_G.XPT` (2011-2012)
-- `nhanes/cycle_h_2013/PFAS_H.XPT`, etc. (2013-2014)
-- `nhanes/cycle_i_2015/PFAS_I.XPT`, etc. (2015-2016)
-- `nhanes/cycle_e_2007/PFC_E.XPT`, etc. (2007-2008)
-- `nhanes/cycle_f_2009/PFC_F.XPT`, etc. (2009-2010)
+```
+python download_data.py
+```
 
-### Docking output
-AutoDock Vina PDBQT output files should be in `docking/`. PDB structures from RCSB: 2OX0, 5FUP, 3N9N, 2XUE, 1QLX, 1F41.
+This fetches 31 files from NCBI GEO, CDC NHANES, and RCSB PDB. Run with `geo`, `nhanes`, or `pdb` argument to download selectively.
 
-### Supplementary data
-- Haimbaugh 2022: place Excel tables (Table S3-S5) and `ensembl_to_gene.tsv` in `geo_haimbaugh2022/`
-- Liu 2022: supplementary tables referenced by `geo_liu2022_ulhaq2023/` script
-- Ulhaq 2023: supplementary Excel in `geo_liu2022_ulhaq2023/`
+### Manual downloads (journal supplementary, not automatable)
+- Haimbaugh 2022: Excel tables (Table S3-S5) and `ensembl_to_gene.tsv` -> `geo_haimbaugh2022/`
+- Liu 2022: supplementary tables -> `geo_liu2022_ulhaq2023/`
+- Ulhaq 2023: supplementary Excel -> `geo_liu2022_ulhaq2023/`
+- GSE301375: count files -> `geo_GSE301375/GSE301375_counts/`
 
 ## Running order
 
