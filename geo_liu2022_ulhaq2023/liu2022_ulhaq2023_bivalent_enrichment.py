@@ -3,8 +3,8 @@ Bivalent domain enrichment analysis for two independent PFAS datasets.
 
 Dataset 1: Liu et al. (2022) Environ Health Perspect 130(3):037005
   - Gestational PFAS exposure and offspring DNA methylation (birth + age 12)
-  - HOME Study, Cincinnati, n=279 (birth) / n=236 (age 12)
-  - Illumina 450K array, 4 PFAS: PFOA, PFOS, PFHxS, PFNA
+  - HOME Study, Cincinnati, n=266 (delivery) / n=160 (follow-up)
+  - Illumina EPIC 850K array, 4 PFAS: PFOA, PFOS, PFHxS, PFNA
   - DMPs at raw p < 0.001 provided in supplementary tables
 
 Dataset 2: Ulhaq et al. (2023) J Hazard Mater 457:131718
@@ -65,7 +65,7 @@ pfas_sheets = {
     'Excel Table S4': 'PFNA',
 }
 
-# Count total probes on 450K that have gene annotations (background)
+# Count total probes on EPIC array that have gene annotations (background)
 total_probes_with_genes = sum(1 for p, g in probe_to_gene.items() if g)
 all_genes_on_array = set()
 for p, genes in probe_to_gene.items():
@@ -253,7 +253,7 @@ print("\n\n" + "=" * 80)
 print("COMBINED SUMMARY")
 print("=" * 80)
 
-print("\n--- Liu 2022 (gestational PFAS, offspring DNAm, 450K array) ---")
+print("\n--- Liu 2022 (gestational PFAS, offspring DNAm, EPIC 850K array) ---")
 print(f"{'PFAS':<8s} {'Dir':<6s} {'DMPs':>6s} {'Genes':>6s} {'Bival':>6s} "
       f"{'Enrich':>8s} {'OR':>6s} {'p':>12s}")
 print("-" * 65)
